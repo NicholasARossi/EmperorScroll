@@ -2,9 +2,7 @@
 <head>
   <meta charset="utf-8">
   <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.js"></script>
-  <script src="headr.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,8 +10,12 @@
   <style>
   html,
   body{
+    font-family: EB garamond;
+    text-align: center;
+    font-size: 4vw;
 
-     background: white;
+     background: white url(marble.jpg) repeat 0 0;
+
      color: black;
   }
 
@@ -39,6 +41,7 @@
     width:100%;
     height: 100%;
     top: 0px;
+    left: 0px;
     text-align: center;
   }
   #scroll-animate
@@ -72,52 +75,22 @@
   right: 0;
 }
 
-header
-{
-  width: 100%;
-  height: 100%;
-  background: url(snowrome.jpg) no-repeat 100% 100%;
-  background-repeat: no-repeat;
-  top: 0;
-  position: fixed;
-  z-index: -1;
-}
 
-footer
-{
-  width: 100%;
-  height: 300px;
-  background: gray;
-  bottom: -300px;
-  position: fixed;
-  z-index: -1;
-}
 
-.content
-{
-  height: 1000px;
-  min-height: 1000px;
-  background: #ededed;
-  position: relative;
-  z-index: 1;
-}
 
-.wrapper-parallax {
-  margin-top: 100%;
-  margin-bottom: 300px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-}
+
 
 h1{
   width: 100%;
   height: 100%;
   padding: 0;
   margin: 0;
+  left: -40;
   text-transform: uppercase;
   text-align: center;
-  font-family: Permanent Marker;
-  font-size: 150px;
-  color: #fff;
+  font-family: EB garamond;
+  font-size: 25vw;
+  color: #9C1C29;
 }
 
 header h1{}
@@ -135,59 +108,41 @@ footer h1
   line-height: 300px;
 }
 
-header,
-footer,
-#scroll-animate-main
-{
-  -webkit-transition-property: all;
-     -moz-transition-property: all;
-      transition-property: all;
 
-  -webkit-transition-duration: 0.4s;
-     -moz-transition-duration: 0.4s;
-      transition-duration: 0.4s;
-
-  -webkit-transition-timing-function: cubic-bezier(0, 0, 0, 1);
-     -moz-transition-timing-function: cubic-bezier(0, 0, 0, 1);
-      transition-timing-function: cubic-bezier(0, 0, 0, 1);
-}
   </style>
 </head>
 
 <body>
-<div id="scroll-animate">
-  <div id="scroll-animate-main">
-    <div class="wrapper-parallax">
-      <header>
-        <h1>Rome</h1>
-      </header>
 
-      <section class="content">
+
+
 
   <div id="graphic">
 
 <div class="fixed">
 <img src="garland.svg" alt="Your Logo Alt" viewBox="-250 -250 500 500" width="100%" height="100%">
 </div>
+
   <!-- svg -->
   <div class="fixed"><svg width="100%" height="100%" viewBox="-250 -250 500 500">
-  <circle r="100" stroke="brown" stroke-opacity="0.5" fill="none">
+  <circle r="100" stroke="#9C1C29" stroke-opacity="0.5" fill="none">
 
   </circle>
 
     <use xlink:href="garland.svg"></use>
 
-  <circle r="200" stroke="steelblue" stroke-opacity="0.5" fill="none"></circle>
+  <circle r="200" stroke="#626060" stroke-opacity="0.5" fill="none"></circle>
 </svg></div>
 
 </div><!-- /graphic -->
-</section>
 
-      </div>
-    </div>
-  </div>
 
   <div class="container">
+    <div id="intro">
+
+      <h1>Rome</h1>
+
+    </div>
     <div id="div1">
       <h2>On <strong>July 27, 2017</strong> there were <strong>20</strong> people attending the Data Visualization meetup.</h2>
     </div>
@@ -223,51 +178,58 @@ footer,
       .selectAll("circle")
       .data(nodes)
       .enter().append("circle")
-        .attr("r", 2.5)
-        .attr("fill", function(d) { return d.type === "a" ? "brown" : "steelblue"; })
+        .attr("r", 5)
+        .attr("fill", function(d) { return d.type === "a" ? "#626060" : "#9C1C29"; })
 
 
 
-    var simulation = d3.forceSimulation(nodes)
-        .force("charge", d3.forceCollide().radius(5))
-        .force("r", d3.forceRadial(function(d) { return d.type === "a" ? 100 : 200; }))
-        .on("tick", ticked)
+
 
     function ticked0() {
 
       node
           .attr("cx", function(d) { return 0 })
           .attr("cy", function(d) { return 0 })
-          .style('opacity',0);
+          .attr("opacity", "0");
 
-    }
+          };
 
-    function ticked() {
+
+
+        function ticked1() {
 
       node
+          .transition()
+          .ease(d3.easeExpOut)
+          .duration(600)
+          .delay((d, i) => 100 * i)
+          .attr("opacity", "1")
           .attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
+          };
 
-    }
 
-        function ticked2() {
-      d3.timer(function () {
-      var delta = Date.now() - t0;
-      node
-          .attr("cx", function(d) { return d.x; })
-          .attr("cy", function(d) { return d.y; })
-          .attr('transform', function (d) {return 'rotate('+0.001*delta+')'});
-      });
-    }
+        <!--function ticked2() {-->
+      <!--d3.timer(function () {-->
+      <!--var delta = Date.now() - t0;-->
+      <!--node-->
+          <!--.attr("cx", function(d) { return d.x; })-->
+          <!--.attr("cy", function(d) { return d.y; });-->
+          <!--&lt;!&ndash;.attr('transform', function (d) {return 'rotate('+0.001*delta+')'});&ndash;&gt;-->
+      <!--});-->
+    <!--}-->
 
 
     let naught = () =>{
-      d3.forceSimulation(nodes).on("tick", ticked0)
+          var simulation = d3.forceSimulation(nodes)
+        .force("charge", d3.forceCollide().radius(7.5))
+        .force("r", d3.forceRadial(function(d) { return d.type === "a" ? 100 : 200; }))
+        .on("tick", ticked0)
     }
 
 
     let ready = () =>{
-      d3.forceSimulation(nodes).on("tick", ticked)
+      d3.forceSimulation(nodes).on("tick", ticked1)
     }
 
 
@@ -293,14 +255,14 @@ footer,
 
 
     //triger these functions on page scroll
-    new scroll('div2', '75%', ready, naught);
-    new scroll('div4', '75%', go, naught);
+    new scroll('div1', '75%', ready, naught);
+    new scroll('div2', '75%', go, naught);
 
 
 
 
     //start grid on page load
-    ready();
+    naught();
 
 
   </script>
