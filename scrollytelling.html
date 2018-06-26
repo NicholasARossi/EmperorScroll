@@ -31,6 +31,7 @@
     height: 100%;
     line-height: 1.5;
     text-align: center;
+    z-index: 0;
 
   }
   .container div {
@@ -80,11 +81,15 @@
 
 #intro
 {
-z-index: -1;
+z-index: 6;
+}
+#graphic2
+{
+ z-index: 0
 }
 #graphic
 {
-    z-index: 99;
+    z-index: 1;
 
 }
 .tooltip {
@@ -106,7 +111,7 @@ h1{
   text-transform: uppercase;
   text-align: center;
   font-family: EB garamond;
-  font-size: 25vw;
+  font-size: 10vw;
   color: #9C1C29;
 }
 
@@ -133,13 +138,18 @@ footer h1
 
 
 
+</div>
+   <div id="graphic2">
+       <div class="fixed">
+<img src="garland.svg" id="garland" viewBox="-250 -250 500 500" width="100%" height="100%">
+</div>
 
 
 
   <div class="container">
     <div id="intro">
 
-      <h1>Rome</h1>
+      <h1>Ave Imperator!</h1>
 
     </div>
     <div id="div1">
@@ -165,22 +175,17 @@ footer h1
 
     <div id="graphic">
 
-<div class="fixed">
-<img src="garland.svg" alt="Your Logo Alt" viewBox="-250 -250 500 500" width="100%" height="100%">
-</div>
+
 
   <!-- svg -->
-  <div class="fixed"><svg width="100%" height="100%" viewBox="-250 -250 500 500">
-  <circle r="100" stroke="#9C1C29" stroke-opacity="0.5" fill="none">
+  <div class="fixed"><svg id="graphic" width="100%" height="100%" viewBox="-250 -250 500 500">
 
-  </circle>
 
-    <use xlink:href="garland.svg"></use>
 
-  <circle r="200" stroke="#626060" stroke-opacity="0.5" fill="none"></circle>
 </svg></div>
 
-</div><!-- /graphic -->
+       </div>
+  <!-- /graphic -->
 
 <script src="JS/romanglory.js"></script>
 

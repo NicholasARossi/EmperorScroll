@@ -66,11 +66,7 @@
 								   .translate([ w/2, h/2 ]) // centrer l'image obtenue dans le svg
 								   .scale([ w ]); // zoom, plus la valeur est petit plus le zoom est gros
 
-            d3.selection.prototype.moveToFront = function() {
-              return this.each(function(){
-                this.parentNode.appendChild(this);
-              });
-            };
+
             d3.selection.prototype.moveToBack = function() {
                 return this.each(function() {
                     var firstChild = this.parentNode.firstChild;
