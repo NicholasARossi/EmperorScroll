@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Mercator projection</title>
+		<script src="/JS/d3v4.js" charset="utf-8"></script>
+		<script src="JS/topo.js"></script>
+		<style type="text/css">
+
+
+			svg {
+				background-color: white url(marble.jpg) repeat 0 0;
+			}
+
+			h1 {
+				color: white url(marble.jpg) repeat 0 0;
+				font-size: 18px;
+				font-family: sans-serif;
+				font-weight: bold;
+				margin: 0;
+				padding-bottom: 10px;
+
+			}
+
+				#container {
+				background-color: white url(marble.jpg) repeat 0 0;
+				width: 800px;
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 20px;
+				padding: 20px;
+			}
+
+
+
+
+
+		</style>
+	</head>
+	<body>
+
+
+	<div id="container">
+
+	</div>
+
+
+		<script type="text/javascript">
+
+
+            d3.selection.prototype.moveToFront = function() {
+              return this.each(function(){
+                this.parentNode.appendChild(this);
+              });
+            };
+
+			//Width and height
+			var w = 800;
+			var h = 600;
+
+			//Define map projection
+
+
+			var projection = d3.geoMercator() //utiliser une projection standard pour aplatir les pôles, voir D3 projection plugin
+								   .center([ 13, 40 ]) //comment centrer la carte, longitude, latitude
+								   .translate([ w/2, h/2 ]) // centrer l'image obtenue dans le svg
+								   .scale([ w ]); // zoom, plus la valeur est petit plus le zoom est gros
+
+            d3.selection.prototype.moveToFront = function() {
+              return this.each(function(){
+                this.parentNode.appendChild(this);
+              });
+            };
+            d3.selection.prototype.moveToBack = function() {
+                return this.each(function() {
+                    var firstChild = this.parentNode.firstChild;
+                    if (firstChild) {
+                        this.parentNode.insertBefore(this, firstChild);
+                    }
+                });
+            };
+
+			//Create SVG
+			var svg = d3.select("#container")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+			//Define path generator
+			var path = d3.geoPath()
+							 .projection(projection);
+
+			//Load in GeoJSON data
+			d3.json("custom.geo.json", function(json) {
+
+				//Bind data and create one path per GeoJSON feature
+				var map=svg.selectAll("path")
+				   .data(json.features)
+				   .enter()
+				   .append("path")
+				   .attr("d", path)
+				   .attr("stroke", "black")
+				   .attr("fill","#d3d3d3" )
+				   .attr("opacity",0.5);
+
+                map.moveToBack()
+			});
+
+            d3.csv("Data/munged_data.csv", function(data) {
+                console.log(data[0].logitude);
+            var circles = svg.selectAll('circle')
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("r", function(d) { return 5 ;})
+                .attr("cx", function(d) {return d.x = projection([d.logitude, d.latitude])[0];})
+                .attr("cy", function(d) {return d.y = projection([d.logitude, d.latitude])[1];});
+
+             circles.moveToFront()
+
+            });
+
+
+
+
+
+		</script>
+	</body>
+</html>
