@@ -209,7 +209,7 @@ node
 
   };
 
-//// Plotting map
+////// PLOTTING MAP SECTION OF THE FIGURES
 //Width and height
 var w = size_scaler;
 var h = height;
@@ -276,7 +276,41 @@ svg2.selectAll("path")
   .attr("opacity",.57);
 
   };
-//// Builing the scrollytelling entirely
+
+///// RISE SECTION
+
+
+
+
+let rise = () =>{
+    var simulation = d3.forceSimulation(nodes)
+           .on("tick", rise_cluster);
+
+      }
+function rise_cluster() {
+
+//let colors =["#2c7bb6","#00a6ca","#00ccbc","#90eb9d","#f9d057","#f29e2e", "#e76818","#d7191c"];
+let countvect=[0,0,0,0,0,0,0,0,0,0,0]
+let colors =['#fff','#9c1c29','darkgrey','#a85350','slategrey','#ad7f7b','#a9a9a9'];
+svg2.selectAll("path")
+  .attr("opacity",0);
+node
+  .on("mouseover", tipMouseover2)
+  .transition()
+  .ease(d3.easeExpOut)
+  .duration(600)
+    .attr("stroke","none")
+    .attr("r", 10)
+    .attr("cx", function(d, i) { countvect[+data[i].risenums+3] +=1; return countvect[+data[i].risenums+3]%11*30-size_scaler/2.9})
+    .attr("cy", function(d, i) { return +data[i].risenums*30-size_scaler/4})
+    .attr("fill", function(d,i) { return colors[Math.max(0,+data[i].risenums)]; })
+    .attr("opacity", "1");
+
+
+  };
+
+////////// BUILDING SCROLLYTELLING FRAMEWORK
+
 
 //waypoints scroll constructor
 function scroll(n, offset, func1, func2){
@@ -296,6 +330,7 @@ new scroll('div2', '75%', gro, ready);
 new scroll('div3', '75%', ready, gro);
 new scroll('div4', '75%', cluster, ready);
 new scroll('div5', '75%', mapped, cluster);
+new scroll('div6', '75%', rise, mapped);
 
 
 
