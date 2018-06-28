@@ -39,6 +39,7 @@ var nodes = [].concat(
   d3.range(data.length).map(function() { return {type: "b"}; })
 );
 var body = d3.select('body')
+.append("svg");
 var tooltip = body.append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
@@ -116,14 +117,18 @@ function ticked0() {
       };
 
 function ticked1() {
-
+svg2.selectAll("path")
+  .transition()
+  .ease(d3.easeLinear)
+  .duration(300)
+  .attr("opacity",0);
 node
   .on("mouseover", tipMouseover)
   .transition()
   .ease(d3.easeExpOut)
   .duration(600)
 //      .delay((d, i) => 100 * i)
-  .attr("opacity", "1")
+  .attr("opacity", "0.5")
   .attr("r", 10)
   .attr("fill", function(d) { return  "#9C1C29"; })
   .attr("stroke","none")
@@ -273,7 +278,10 @@ node
 .attr("cx", function(d,i) {return projection([data[i].logitude, data[i].latitude])[0];})
 .attr("cy", function(d,i) {return projection([data[i].logitude, data[i].latitude])[1];});
 svg2.selectAll("path")
-  .attr("opacity",.57);
+  .transition()
+  .ease(d3.easeLinear)
+  .duration(300)
+  .attr("opacity",.5);
 
   };
 
@@ -288,10 +296,14 @@ let rise = () =>{
 
       }
 function rise_cluster() {
-
+svg2.selectAll("path")
+  .transition()
+  .ease(d3.easeLinear)
+  .duration(300)
+  .attr("opacity",0);
 //let colors =["#2c7bb6","#00a6ca","#00ccbc","#90eb9d","#f9d057","#f29e2e", "#e76818","#d7191c"];
 let countvect=[0,0,0,0,0,0,0,0,0,0,0]
-let colors =['#fff','#9c1c29','darkgrey','#a85350','slategrey','#ad7f7b','#a9a9a9'];
+let colors =['#ccac00','#9c1c29','darkgrey','#a85350','slategrey','#ad7f7b','#a9a9a9'];
 svg2.selectAll("path")
   .attr("opacity",0);
 node
@@ -302,9 +314,9 @@ node
     .attr("stroke","none")
     .attr("r", 10)
     .attr("cx", function(d, i) { countvect[+data[i].risenums+3] +=1; return countvect[+data[i].risenums+3]%11*30-size_scaler/2.9})
-    .attr("cy", function(d, i) { return +data[i].risenums*30-size_scaler/4})
+    .attr("cy", function(d, i) { return +data[i].risenums*30})
     .attr("fill", function(d,i) { return colors[Math.max(0,+data[i].risenums)]; })
-    .attr("opacity", "1");
+    .attr("opacity", "0.75");
 
 
   };
@@ -326,8 +338,8 @@ function scroll(n, offset, func1, func2){
 
 //triger these functions on page scroll
 new scroll('div1', '75%', ready, naught);
-new scroll('div2', '75%', gro, ready);
-new scroll('div3', '75%', ready, gro);
+new scroll('div2', '75%', mapped, ready);
+new scroll('div3', '75%', rise, mapped);
 new scroll('div4', '75%', cluster, ready);
 new scroll('div5', '75%', mapped, cluster);
 new scroll('div6', '75%', rise, mapped);
