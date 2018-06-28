@@ -18,28 +18,11 @@ if (width>500){
   size_scaler=500;}
 var svg = document.getElementsByTagName('svg')[0]
 
-////Load in GeoJSON data
-//d3.json("ne_50m_admin_0_countries_simplified.json", function(json) {
-//
-//    //Bind data and create one path per GeoJSON feature
-//    svg.selectAll("path")
-//       .data(json.features)
-//       .enter()
-//       .append("path")
-//       .attr("d", path)
-//       .attr("stroke", "black")
-//       .attr("fill","#fff" )
-//       .attr("opacity", 1);
-//;
-//
-//
-//});
 
 var nodes = [].concat(
   d3.range(data.length).map(function() { return {type: "b"}; })
 );
 var body = d3.select('body')
-.append("svg");
 var tooltip = body.append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
@@ -62,10 +45,45 @@ var tipMouseover = function(d,i) {
 
 };
 var tipMouseover2 = function(d,i) {
-let colors =["#2c7bb6","#00a6ca","#00ccbc","#90eb9d","#f9d057","#f29e2e", "#e76818","#d7191c"];
+let colors =['#fff','#9c1c29','darkgrey','#ccac00','slategrey','#013220','#a9a9a9'];
 
     // var color = d3.interpolate("#ffffff","#FF00FF")(d.state/52);
         var html  = data[i].name+"<br/>"+"<span style='color:" + colors[+data[i].causenums] + ";'>"+ data[i].cause  + "</span><br/>";
+                d3.select(this)
+                  .transition()
+                  .duration(300)
+                  .attr('stroke-width',3)
+    tooltip.html(html)
+        .style("left", (d3.event.pageX + 15) + "px")
+        .style("top", (d3.event.pageY - 28) + "px")
+      .transition()
+        .duration(300) // ms
+        .style("opacity", .9) // started as 0!
+
+};
+
+var tipMouseover3 = function(d,i) {
+let colors =['#ccac00','#9c1c29','darkgrey','#a85350','slategrey','#013220','#a9a9a9'];
+
+    // var color = d3.interpolate("#ffffff","#FF00FF")(d.state/52);
+        var html  = data[i].name+"<br/>"+"<span style='color:" + colors[Math.max(0,+data[i].risenums)]  + ";'>"+ data[i].rise  + "</span><br/>";
+                d3.select(this)
+                  .transition()
+                  .duration(300)
+                  .attr('stroke-width',3)
+    tooltip.html(html)
+        .style("left", (d3.event.pageX + 15) + "px")
+        .style("top", (d3.event.pageY - 28) + "px")
+      .transition()
+        .duration(300) // ms
+        .style("opacity", .9) // started as 0!
+
+};
+
+var tipMouseover4 = function(d,i) {
+
+    // var color = d3.interpolate("#ffffff","#FF00FF")(d.state/52);
+        var html  = data[i].name+"<br/>"+"<span style='color:black"+ ";'>"+"of "+ data[i].city  + "</span><br/>";
                 d3.select(this)
                   .transition()
                   .duration(300)
@@ -100,6 +118,8 @@ var node = d3.select("svg")
     .attr("fill", function(d) { return  "#9C1C29"; })
     .on("mouseover", tipMouseover)
     .on("mouseout", tipMouseout);
+
+
 
 
 
@@ -144,6 +164,9 @@ node
   .ease(d3.easeExpOut)
   .duration(600)
   .attr("r", function(d,i) { return +data[i].legacy; })
+  .attr("cx", function(d) { return d.x; })
+  .attr("cy", function(d) { return d.y; })
+  .attr("fill", function(d) { return  "#9C1C29"; })
   .attr("opacity", 0.5);
 
 
@@ -196,7 +219,7 @@ let rows = 10;
 let column = 10;
 //let colors =["#2c7bb6","#00a6ca","#00ccbc","#90eb9d","#f9d057","#f29e2e", "#e76818","#d7191c"];
 
-let colors =['#fff','#9c1c29','darkgrey','#a85350','slategrey','#ad7f7b','#a9a9a9'];
+let colors =['#fff','#9c1c29','darkgrey','#ccac00','slategrey','#013220','#a9a9a9'];
 svg2.selectAll("path")
   .attr("opacity",0);
 node
@@ -206,8 +229,8 @@ node
   .duration(600)
     .attr("stroke","none")
     .attr("r", 10)
-    .attr("cx", (d, i) => i % column * spacing-size_scaler/2.9)
-    .attr("cy", (d, i) => Math.floor(i / 10) % rows * spacing-size_scaler/4)
+    .attr("cx", (d, i) => i % column * spacing-size_scaler/3.5)
+    .attr("cy", (d, i) => Math.floor(i / 10) % rows * spacing-size_scaler/5)
     .attr("fill", function(d,i) { return colors[+data[i].causenums]; })
     .attr("opacity", "1")
 
@@ -268,6 +291,7 @@ let mapped = () =>{
 function map_proj() {
 
 node
+  .on("mouseover", tipMouseover4)
   .transition()
   .ease(d3.easeExpOut)
   .duration(600)
@@ -303,11 +327,11 @@ svg2.selectAll("path")
   .attr("opacity",0);
 //let colors =["#2c7bb6","#00a6ca","#00ccbc","#90eb9d","#f9d057","#f29e2e", "#e76818","#d7191c"];
 let countvect=[0,0,0,0,0,0,0,0,0,0,0]
-let colors =['#ccac00','#9c1c29','darkgrey','#a85350','slategrey','#ad7f7b','#a9a9a9'];
+let colors =['#ccac00','#9c1c29','darkgrey','#a85350','slategrey','#013220','#a9a9a9'];
 svg2.selectAll("path")
   .attr("opacity",0);
 node
-  .on("mouseover", tipMouseover2)
+  .on("mouseover", tipMouseover3)
   .transition()
   .ease(d3.easeExpOut)
   .duration(600)
@@ -337,13 +361,13 @@ function scroll(n, offset, func1, func2){
 };
 
 //triger these functions on page scroll
-new scroll('div1', '75%', ready, naught);
-new scroll('div2', '75%', mapped, ready);
-new scroll('div3', '75%', rise, mapped);
-new scroll('div4', '75%', cluster, ready);
-new scroll('div5', '75%', mapped, cluster);
-new scroll('div6', '75%', rise, mapped);
-
+new scroll('div1', '25%', ready, naught);
+new scroll('div2', '50%', mapped, ready);
+new scroll('div3', '25%', rise, mapped);
+new scroll('div4', '75%', ready, rise);
+new scroll('div4', '25%', gro, ready);
+new scroll('div5', '50%', cluster, gro);
+new scroll('div6', '50%', naught, cluster);
 
 
 

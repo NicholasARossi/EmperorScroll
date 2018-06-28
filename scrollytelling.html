@@ -64,13 +64,15 @@
 
  .Scroll-to-top {
 	 position: fixed;
+	 font-family: EB garamond;
 	 right: 20px;
 	 bottom: 0;
+	 z-index: 1;
 	 background-color: rgba(0,0,0,0.2);
 	 border: none;
 	 color: rgba(255,255,255);
-	 font-size: 1.5rem;
-	 padding: 0.5em;
+	 font-size: 1rem;
+	 padding: 0em;
 	 cursor: pointer;
 	 transform: translateY(100%);
 	 transition: all 0.3s;
@@ -118,9 +120,10 @@
     width:100%;
     height: 100%;
     top: 0px;
-    left: -20px;
+    left: -1em;
     text-align: center;
   }
+
   #scroll-animate
 {
   overflow: hidden;
@@ -174,7 +177,6 @@ z-index: 6;
     height: auto;
     pointer-events: none;
     background-color: white;
-    z-position:10;
 }
 
 h1{
@@ -205,10 +207,17 @@ hx{
   text-align: left;
   position: absolute;
   font-family: EB garamond;
-  font-size: 2vw;
-  color: #000;
+  font-size: 0.75em;
+  color: #fff;
 }
+.skull{
+  <!--position: absolute;-->
 
+    <!--left: 15%;-->
+
+    <!--height:10em;-->
+
+}
 header h1{}
 
 .content h1{
@@ -217,17 +226,20 @@ header h1{}
 }
 .legend{
   text-align: left;
-  transform: translateY(-10%);
+  left:
   	 display: block;
+  width: 25%;
+  background: white url(fabric.png) repeat 0 0;
+  transform: translateY(-10%);
 
 }
 
  .legend-item {
 	 color: rgba(0,0,0,0.4);
 	 text-decoration: none;
-	 font-size: 1em;
+	 font-size: .75em;
 	 transition: color 0.3s;
-	 padding: 0vw;
+	 padding: 0em;
 	 display: block;
 }
 
@@ -235,7 +247,9 @@ footer h1
 {
   line-height: 300px;
 }
-
+jam {
+    background-color: #000;
+}
 
   </style>
 </head>
@@ -247,9 +261,9 @@ footer h1
   <a href="#B" class="Quick-navigation-item">II</a>
   <a href="#C" class="Quick-navigation-item">III</a>
   <a href="#D" class="Quick-navigation-item">IV</a>
-  <a href="#C" class="Quick-navigation-item">V</a>
-  <a href="#C" class="Quick-navigation-item">VI</a>
-  <a href="#C" class="Quick-navigation-item">VII</a>
+  <a href="#E" class="Quick-navigation-item">V</a>
+  <a href="#F" class="Quick-navigation-item">VI</a>
+  <a href="#G" class="Quick-navigation-item">VII</a>
 </nav>
 
 </div>
@@ -267,8 +281,8 @@ footer h1
     <div id="intro">
 
       <h1>Ave Imperator!</h1>
-            <hx>Nicholas Rossi <br/>
-            MMXVIII</hx>
+            <hx><jam>Rossidata MMXVIII </jam><br/><jam>The rise and fall of the roman emperors</jam><br/>
+            <jam>Mouse over each section for addtional info</jam></hx>
 
     </div>
                 </section>
@@ -287,32 +301,49 @@ footer h1
       <h2>and found power through different means</h2>
 
 <nav class="legend">
-  <a class="legend-item"  style="color:red">Birthright</a>
-  <a class="legend-item"   style="color:red">Birthright</a>
-  <a class="legend-item" style="color:red">Conflict</a>
-  <a class="legend-item"  style="color:red">Conflict</a>
-  <a class="legend-item" style="color:red">Conflict</a>
-  <a class="legend-item"  style="color:red">Conflict</a>
-  <a class="legend-item"  style="color:red">Conflict</a>
-    <a class="legend-item"  style="color:red">Conflict</a>
-
+  <!--['#ccac00','#9c1c29','darkgrey','#a85350','slategrey','#ad7f7b','#a9a9a9']-->
+  <a class="legend-item"  style="color:#ccac00">Birthright</a>
+  <a class="legend-item"   style="color:#9c1c29">Seized Power</a>
+  <a class="legend-item" style="color:darkgrey">Given by Guard</a>
+  <a class="legend-item"  style="color:#a85350">Given by Senate</a>
+  <a class="legend-item" style="color:slategrey">Purchased</a>
+  <a class="legend-item"  style="color:#013220">Given by Army</a>
+  <a class="legend-item"  style="color:#a9a9a9">Given by Emperor</a>
+  <a class="legend-item"  style="color:black">Purchased</a>
 </nav>
     </div>
                 </section>
+        <section id="E"  class="js-scroll-step">
 
           <div id="div4">
       <h2>Some Lasted Longer than others</h2>
     </div>
+          </section>
+            <section id="F"  class="js-scroll-step">
+
     <div id="div5">
       <h2>But each was brought down eventually</h2>
-    </div>
-    <div id="div6">
-      <h2>Memento mori for in the end death claims us all</h2>
-    </div>
 
-          <div id="div7">
-      <h2>More Text here</h2>
+      <nav class="legend"   style="width: 20%">
+<!--let colors =['#fff','#9c1c29','darkgrey','#a85350','slategrey','#ad7f7b','#a9a9a9'];-->
+  <a class="legend-item"  style="color:#9c1c29">Assassination</a>
+  <a class="legend-item"   style="color:darkgrey">Suicide</a>
+  <a class="legend-item" style="color:#ccac00">Natural Causes</a>
+  <a class="legend-item"  style="color:slategrey">Execution</a>
+  <a class="legend-item" style="color:#013220">Combat</a>
+        <a class="legend-item" style="color:#a9a9a9">Captivity</a>
+        <a class="legend-item" style="color:black">Unkown</a>
+</nav>
     </div>
+                        </section>
+            <section id="G"  class="js-scroll-step">
+
+    <div id="div6">
+      <h2 style="font-size:1em">Memento mori for in the end death claims us all</h2>
+<img src="skull.svg" id="skull" style="left:-2em" width="100%" height="100%">
+
+    </div>
+                        </section>
 
   </div>
 <button class="Scroll-to-top">Scroll To Top</button>
